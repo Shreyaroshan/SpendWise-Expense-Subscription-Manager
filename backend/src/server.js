@@ -74,12 +74,14 @@ app.use('/api/categories', categoryRoutes);
 // Debug endpoint for deployment filesystem check
 app.get('/api/debug-deploy', (req, res) => {
 	const frontendBuildPath = path.join(__dirname, '../../frontend/dist');
+	const assetsPath = path.join(frontendBuildPath, 'assets');
 	res.json({
 		__dirname,
 		cwd: process.cwd(),
 		frontendBuildPath,
 		exists: fs.existsSync(frontendBuildPath),
 		contents: fs.existsSync(frontendBuildPath) ? fs.readdirSync(frontendBuildPath) : null,
+		assetsContents: fs.existsSync(assetsPath) ? fs.readdirSync(assetsPath) : null,
 		env: {
 			NODE_ENV: process.env.NODE_ENV,
 			PORT: process.env.PORT,
