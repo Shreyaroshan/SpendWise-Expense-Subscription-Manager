@@ -14,13 +14,12 @@ router.route('/')
   .post(createExpense)
   .get(getExpenses);
 
+router.post('/upload-receipt', uploadReceiptFile, uploadExpenseReceipt);
+router.get('/stats/by-category', getStatsByCategory);
+router.get('/stats/trends', getMonthlyTrends);
+
 router.route('/:id')
   .put(updateExpense)
   .delete(deleteExpense);
-
-router.post('/upload-receipt', uploadReceiptFile, uploadExpenseReceipt);
-
-router.get('/stats/by-category', getStatsByCategory);
-router.get('/stats/trends', getMonthlyTrends);
 
 export default router;
