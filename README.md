@@ -46,12 +46,18 @@ Track recurrent billing cycles (weekly, monthly, quarterly, yearly), next renewa
 
 ![Subscriptions Page](assets/screenshots/subscriptions.png)
 
+*Add Subscription Dialog overlay:*
+![Add Subscription Modal](assets/screenshots/add-subscription-modal.png)
+
 ---
 
 ### 5. Budgets Dashboard
 Set category-wise monthly spending limits. Monitor overall budget progress through dynamic progress bars and visual warnings.
 
 ![Budgets Page](assets/screenshots/budgets.png)
+
+*Set Category Budget Dialog overlay:*
+![Set Budget Modal](assets/screenshots/set-budget-modal.png)
 
 ---
 
