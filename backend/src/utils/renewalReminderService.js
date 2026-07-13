@@ -1,24 +1,10 @@
-import nodemailer from 'nodemailer';
+import { getMailer } from './mailer.js';
 import Subscription from '../models/Subscription.js';
 import User from '../models/User.js';
 import Notification from '../models/Notification.js';
 import { createInAppNotification } from '../controllers/notificationController.js';
 
 const LOOKAHEAD_DAYS = 7;
-
-const getMailer = () => {
-  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) return null;
-
-  return nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT || 587),
-    secure: false,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
-};
 
 export const evaluateRenewalReminders = async ({ userId, days = LOOKAHEAD_DAYS } = {}) => {
   const now = new Date();

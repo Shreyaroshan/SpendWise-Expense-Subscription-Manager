@@ -1,4 +1,6 @@
 import Category from '../models/Category.js';
+import Expense from '../models/Expense.js';
+import Budget from '../models/Budget.js';
 
 const DEFAULT_CATEGORIES = [
   { name: 'Food', slug: 'food', icon: '🍔', color: '#f59e0b', type: 'expense' },
@@ -55,6 +57,18 @@ export const deleteCategory = async (req, res) => {
   try {
     const category = await Category.findOne({ _id: req.params.id, userId: req.user._id });
     if (!category) return res.status(404).json({ success: false, message: 'Category not found' });
+
+    // Check if the category is referenced by any expense or budget
+    const expenseExists = await Expense.exists({ categoryId: category._id });
+    const budgetExists = await Budget.exists({ categoryId: category._id });
+
+    if (expenseExists || budgetExists) {
+      return res.status(400).json({
+        success: false,
+        message: 'Cannot delete category that is currently linked to expenses or budgets'
+      });
+    }
+
     await category.deleteOne();
     res.json({ success: true, message: 'Category deleted' });
   } catch (error) {

@@ -27,7 +27,7 @@ const allowedOrigins = Array.from(
 	].map((origin) => origin.trim()).filter(Boolean))
 );
 
-const isLocalDevOrigin = (origin) => /^https?:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin);
+const isLocalDevOrigin = (origin) => process.env.NODE_ENV === 'development' && /^https?:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin);
 
 // Middleware FIRST
 app.use(helmet());

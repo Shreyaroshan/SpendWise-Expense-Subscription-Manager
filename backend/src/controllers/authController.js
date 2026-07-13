@@ -79,7 +79,12 @@ export const updateProfile = async (req, res) => {
     const updates = {};
     if (name !== undefined) updates.name = name;
     if (phoneNumber !== undefined) updates.phoneNumber = phoneNumber;
-    if (avatarUrl !== undefined) updates.avatarUrl = avatarUrl;
+    if (avatarUrl !== undefined) {
+      if (avatarUrl && !/^https:\/\//i.test(avatarUrl)) {
+        return res.status(400).json({ success: false, message: 'avatarUrl must be a valid HTTPS URL' });
+      }
+      updates.avatarUrl = avatarUrl;
+    }
     if (currency !== undefined) updates.currency = currency;
     if (timezone !== undefined) updates.timezone = timezone;
     if (notifPrefs !== undefined) updates.notifPrefs = notifPrefs;

@@ -1,37 +1,8 @@
 import cron from 'node-cron';
-import nodemailer from 'nodemailer';
 import Budget from '../models/Budget.js';
-import Notification from '../models/Notification.js';
-import { createInAppNotification } from '../controllers/notificationController.js';
 import { evaluateBudgetAlerts } from '../utils/budgetAlertService.js';
 import { evaluateRenewalReminders } from '../utils/renewalReminderService.js';
-
-const getMailer = () => {
-  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) return null;
-
-  return nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT || 587),
-    secure: false,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
-};
-
-
-const createUniqueNotification = async (payload) => {
-  const existing = await Notification.findOne({
-    userId: payload.userId,
-    type: payload.type,
-    title: payload.title,
-    message: payload.message,
-  });
-
-  if (existing) return existing;
-  return createInAppNotification(payload);
-};
+import { getMailer } from '../utils/mailer.js';
 
 const processRenewalReminders = async () => {
   await evaluateRenewalReminders();

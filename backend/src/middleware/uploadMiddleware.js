@@ -5,7 +5,8 @@ const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
-  if (!file.mimetype.startsWith('image/')) {
+  const allowedExts = /\.(jpe?g|png|gif|webp)$/i;
+  if (!file.mimetype.startsWith('image/') || !allowedExts.test(file.originalname)) {
     cb(new Error('Only image files are allowed'));
     return;
   }

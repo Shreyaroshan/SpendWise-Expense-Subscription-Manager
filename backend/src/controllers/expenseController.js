@@ -8,6 +8,11 @@ import { evaluateBudgetAlertsForExpense } from '../utils/budgetAlertService.js';
 export const createExpense = async (req, res) => {
   try {
     const { amount, categoryId, date, description, paymentMethod, isRecurring, recurringSchedule, receiptUrl } = req.body;
+
+    if (amount === undefined || isNaN(amount) || Number(amount) <= 0) {
+      return res.status(400).json({ success: false, message: 'Amount must be a positive number' });
+    }
+
     const expense = await Expense.create({
       userId: req.user._id,
       amount, categoryId, date, description, paymentMethod, isRecurring, recurringSchedule, receiptUrl,
@@ -30,7 +35,8 @@ export const createExpense = async (req, res) => {
 // GET /api/expenses
 export const getExpenses = async (req, res) => {
   try {
-    const { startDate, endDate, categoryId, minAmount, maxAmount, page = 1, limit = 20 } = req.query;
+    const { startDate, endDate, categoryId, minAmount, maxAmount, page = 1 } = req.query;
+    const limit = Math.min(100, Math.max(1, Number(req.query.limit || 20)));
     const filter = { userId: req.user._id };
 
     if (startDate || endDate) {

@@ -3,21 +3,7 @@ import Expense from '../models/Expense.js';
 import User from '../models/User.js';
 import Notification from '../models/Notification.js';
 import { createInAppNotification } from '../controllers/notificationController.js';
-import nodemailer from 'nodemailer';
-
-const getMailer = () => {
-  if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) return null;
-
-  return nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT || 587),
-    secure: false,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS,
-    },
-  });
-};
+import { getMailer } from './mailer.js';
 
 const monthRange = () => {
   const now = new Date();

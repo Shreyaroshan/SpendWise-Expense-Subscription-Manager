@@ -162,7 +162,7 @@ export const updateSubscriptionStatus = async (req, res) => {
 // GET /api/subscriptions/upcoming
 export const getUpcomingRenewals = async (req, res) => {
   try {
-    const days = Math.max(1, Number(req.query.days || 7));
+    const days = Math.min(365, Math.max(1, Number(req.query.days || 7)));
     const now = new Date();
     const start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
     const upper = new Date(start);

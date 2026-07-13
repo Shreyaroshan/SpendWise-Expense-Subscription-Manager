@@ -46,9 +46,16 @@ export const getDashboardAnalytics = async (req, res) => {
       { $sort: { total: -1 } },
     ]);
 
-    const sixMonthStart = new Date(now.getFullYear(), now.getMonth() - 5, 1, 0, 0, 0, 0);
+    const trendStartMap = {
+      '1M': new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0),
+      '3M': new Date(now.getFullYear(), now.getMonth() - 2, 1, 0, 0, 0, 0),
+      '6M': new Date(now.getFullYear(), now.getMonth() - 5, 1, 0, 0, 0, 0),
+      '1Y': new Date(now.getFullYear() - 1, now.getMonth() + 1, 1, 0, 0, 0, 0),
+    };
+    const trendStart = trendStartMap[period];
+
     const trends = await Expense.aggregate([
-      { $match: { userId, date: { $gte: sixMonthStart, $lte: monthEnd } } },
+      { $match: { userId, date: { $gte: trendStart, $lte: monthEnd } } },
       {
         $group: {
           _id: { year: { $year: '$date' }, month: { $month: '$date' } },

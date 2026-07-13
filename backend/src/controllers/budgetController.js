@@ -113,17 +113,6 @@ export const getBudgetProgress = async (req, res) => {
         const spent = agg?.spent || 0;
         const percentage = budget.amount > 0 ? (spent / budget.amount) * 100 : 0;
 
-        await Budget.updateOne(
-          { _id: budget._id },
-          {
-            $set: {
-              'currentPeriod.spent': spent,
-              'currentPeriod.startDate': start,
-              'currentPeriod.endDate': end,
-            },
-          }
-        );
-
         return {
           _id: budget._id,
           categoryId: budget.categoryId,
