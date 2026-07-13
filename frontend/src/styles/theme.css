@@ -1,0 +1,128 @@
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* SpendWise Dark Classic Theme */
+  --background-deep: #0B1120;
+  --background-surface: #111827;
+  --background-elevated: #1A2540;
+  --border-subtle: rgba(255, 255, 255, 0.07);
+  
+  /* Color palette */
+  --color-emerald: #10B981;
+  --color-cyan: #22D3EE;
+  --color-amber: #F59E0B;
+  --color-rose: #F43F5E;
+  --color-purple: #8B5CF6;
+  
+  /* Text colors */
+  --text-primary: #E2E8F0;
+  --text-muted: #94A3B8;
+  --text-dim: #64748B;
+  
+  /* Component tokens */
+  --radius-card: 18px;
+  --radius-button: 10px;
+  --radius-pill: 999px;
+  
+  /* Font families */
+  --font-sora: 'Sora', sans-serif;
+  --font-dm-mono: 'DM Mono', monospace;
+  
+  /* Spacing unit (8px base) */
+  --spacing-1: 8px;
+  --spacing-2: 16px;
+  --spacing-3: 24px;
+  --spacing-4: 32px;
+  --spacing-6: 48px;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+@layer base {
+  * {
+    @apply outline-offset-2 outline-emerald-500/50;
+  }
+
+  body {
+    @apply bg-[#0B1120] text-[#E2E8F0];
+    font-family: var(--font-sora);
+  }
+
+  html {
+    font-size: 16px;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-sora);
+  }
+}
+
+.theme-light body {
+  background: #eef2f7 !important;
+  color: #0f172a !important;
+}
+
+.theme-light [class*="bg-[#0B1120]"] {
+  background-color: #f8fafc !important;
+}
+
+.theme-light [class*="bg-[#111827]"] {
+  background-color: #ffffff !important;
+}
+
+.theme-light [class*="border-[rgba(255,255,255,0.07)]"] {
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+.theme-light [class*="text-[#E2E8F0]"] {
+  color: #0f172a !important;
+}
+
+.theme-light [class*="text-[#94A3B8]"],
+.theme-light [class*="text-[#64748B]"] {
+  color: #334155 !important;
+}
+
+.theme-light .sw-main {
+  background: #eef2f7 !important;
+}
+
+.theme-light .sw-header {
+  background: #ffffff !important;
+  border-bottom-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+.theme-light .sw-sidebar {
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%) !important;
+  border-right-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+.theme-light .sw-sidebar a:hover,
+.theme-light .sw-sidebar button:hover,
+.theme-light .sw-header button:hover {
+  background: rgba(15, 23, 42, 0.06) !important;
+  color: #0f172a !important;
+}
+
+.sw-toggle-track {
+  background: #1f2937 !important;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+}
+
+.peer:checked + .sw-toggle-track {
+  background: #10b981 !important;
+  border-color: #10b981 !important;
+}
+
+.theme-light .sw-toggle-track {
+  background: #cbd5e1 !important;
+  border-color: #94a3b8 !important;
+}
+
+.theme-light .peer:checked + .sw-toggle-track {
+  background: #059669 !important;
+  border-color: #059669 !important;
+}
