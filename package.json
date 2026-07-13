@@ -8,7 +8,7 @@
     "install-frontend": "npm install --prefix frontend",
     "install-all": "npm run install-backend && npm run install-frontend",
     "build-frontend": "npm run build --prefix frontend",
-    "build": "npm run build-frontend",
+    "build": "npm run deploy-build",
     "start": "node backend/src/server.js",
     "deploy-build": "npm run install-all && npm run build-frontend",
     "test-backend": "npm test --prefix backend",
