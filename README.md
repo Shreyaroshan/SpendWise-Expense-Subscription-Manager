@@ -39,6 +39,9 @@ Paginated transaction logs supporting query searches, category filtering, paymen
 
 ![Expenses Listing](assets/screenshots/expenses-list.png)
 
+*Add Expense Dialog overlay (with receipt upload preview):*
+![Add Expense Modal](assets/screenshots/add-expense-modal.png)
+
 ---
 
 ### 4. Subscriptions Management
