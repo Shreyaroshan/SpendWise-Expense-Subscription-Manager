@@ -41,6 +41,41 @@ Paginated transaction logs supporting query searches, category filtering, paymen
 
 ---
 
+### 4. Subscriptions Management
+Track recurrent billing cycles (weekly, monthly, quarterly, yearly), next renewal dates, active/paused/cancelled statuses, and projected monthly/yearly costs.
+
+![Subscriptions Page](assets/screenshots/subscriptions.png)
+
+---
+
+### 5. Budgets Dashboard
+Set category-wise monthly spending limits. Monitor overall budget progress through dynamic progress bars and visual warnings.
+
+![Budgets Page](assets/screenshots/budgets.png)
+
+---
+
+### 6. Analytics & Trends
+Detailed breakdown charts, daily spending averages, highest spend categories, and 6-month historical trend line charts.
+
+![Analytics Page](assets/screenshots/analytics.png)
+
+---
+
+### 7. Interactive Financial Calendar
+A calendar grid highlighting scheduled subscription renewals, custom payment milestones, and one-time expenses.
+
+![Calendar Page](assets/screenshots/calendar.png)
+
+---
+
+### 8. Notification Logs & System Status
+Keep track of automated renewal reminders, category warnings, and billing notification history.
+
+![Notifications Page](assets/screenshots/notifications.png)
+
+---
+
 ## 🛠️ Tech Stack
 
 ### Frontend Architecture
