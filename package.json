@@ -1,0 +1,18 @@
+{
+  "name": "spendwise-expense-subscription-manager",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "install-backend": "npm install --prefix backend",
+    "install-frontend": "npm install --prefix frontend",
+    "install-all": "npm run install-backend && npm run install-frontend",
+    "build-frontend": "npm run build --prefix frontend",
+    "build": "npm run build-frontend",
+    "start": "node backend/src/server.js",
+    "deploy-build": "npm run install-all && npm run build-frontend",
+    "test-backend": "npm test --prefix backend",
+    "test-frontend": "npm test --prefix frontend",
+    "test": "npm run test-backend && npm run test-frontend"
+  }
+}

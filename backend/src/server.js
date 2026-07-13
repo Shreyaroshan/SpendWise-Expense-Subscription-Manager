@@ -6,6 +6,11 @@ import rateLimit from 'express-rate-limit';
 import connectDB from './config/db.js';
 import startCronJobs from './jobs/cronJobs.js';
 import { notFound, errorHandler } from './middleware/errorHandler.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 import authRoutes from './routes/auth.js';
 import expenseRoutes from './routes/expenses.js';
@@ -65,7 +70,20 @@ app.use('/api/analytics', analyticsRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/categories', categoryRoutes);
 
-app.get('/', (req, res) => res.json({ message: 'SpendWise API running' }));
+// Serve static assets in production
+if (process.env.NODE_ENV === 'production') {
+	const frontendBuildPath = path.join(__dirname, '../../frontend/dist');
+	app.use(express.static(frontendBuildPath));
+
+	app.get('*', (req, res, next) => {
+		if (req.path.startsWith('/api')) {
+			return next();
+		}
+		res.sendFile(path.join(frontendBuildPath, 'index.html'));
+	});
+} else {
+	app.get('/', (req, res) => res.json({ message: 'SpendWise API running' }));
+}
 
 app.use(notFound);
 app.use(errorHandler);
