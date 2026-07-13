@@ -8,6 +8,7 @@ import startCronJobs from './jobs/cronJobs.js';
 import { notFound, errorHandler } from './middleware/errorHandler.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -69,6 +70,22 @@ app.use('/api/budgets', budgetRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/categories', categoryRoutes);
+
+// Debug endpoint for deployment filesystem check
+app.get('/api/debug-deploy', (req, res) => {
+	const frontendBuildPath = path.join(__dirname, '../../frontend/dist');
+	res.json({
+		__dirname,
+		cwd: process.cwd(),
+		frontendBuildPath,
+		exists: fs.existsSync(frontendBuildPath),
+		contents: fs.existsSync(frontendBuildPath) ? fs.readdirSync(frontendBuildPath) : null,
+		env: {
+			NODE_ENV: process.env.NODE_ENV,
+			PORT: process.env.PORT,
+		}
+	});
+});
 
 // Serve static assets in production
 if (process.env.NODE_ENV === 'production') {
