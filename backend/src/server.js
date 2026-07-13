@@ -36,7 +36,9 @@ const allowedOrigins = Array.from(
 const isLocalDevOrigin = (origin) => process.env.NODE_ENV === 'development' && /^https?:\/\/(localhost|127\.0\.0\.1):\d+$/.test(origin);
 
 // Middleware FIRST
-app.use(helmet());
+app.use(helmet({
+	contentSecurityPolicy: false,
+}));
 app.use(cors({
 	origin: (origin, callback) => {
 		// Allow server-to-server requests and same-origin calls with no Origin header.
