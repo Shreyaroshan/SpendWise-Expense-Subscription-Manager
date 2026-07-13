@@ -39,19 +39,30 @@ const isLocalDevOrigin = (origin) => process.env.NODE_ENV === 'development' && /
 app.use(helmet({
 	contentSecurityPolicy: false,
 }));
-app.use(cors({
-	origin: (origin, callback) => {
-		// Allow server-to-server requests and same-origin calls with no Origin header.
-		if (!origin) return callback(null, true);
+app.use((req, res, next) => {
+	cors({
+		origin: (origin, callback) => {
+			// Allow server-to-server requests and same-origin calls with no Origin header.
+			if (!origin) return callback(null, true);
 
-		if (allowedOrigins.includes(origin) || isLocalDevOrigin(origin)) {
-			return callback(null, true);
-		}
+			try {
+				const originHost = new URL(origin).host;
+				if (originHost === req.headers.host) {
+					return callback(null, true);
+				}
+			} catch (e) {
+				// Handle invalid URL parse error safely
+			}
 
-		return callback(new Error('Not allowed by CORS'));
-	},
-	credentials: true,
-}));
+			if (allowedOrigins.includes(origin) || isLocalDevOrigin(origin)) {
+				return callback(null, true);
+			}
+
+			return callback(null, false);
+		},
+		credentials: true,
+	})(req, res, next);
+});
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
